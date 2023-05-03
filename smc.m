@@ -1,31 +1,35 @@
 # 滑模控制函数
-function [totalAcc, hydrAcc] = smc(vel)
+function [totalAcc, hydrAcc, motAcc] = smc(vel, acc, accd, mu, hydrAcc)
   # 四种工作模式对应四种角减速度
-  motorAngularAcce = [-38.43, -39.14, -158.84, -240.82];
-  ud = 0.0;
+  motorAngularAcce = [-38.43, -39.14];
   R = 0.28;
-  k = 2;
-  eta = 1.1;
+  motAccs = motorAngularAcce *R /2;
+  k = 0.01;
+  eta = 0.1;
   c = 1;
-  e = (vel -ud) /R;
+  e = acc -accd;
   s = c *e;
-  if vel > 25,
-    motAngAcc = motorAngularAcce(4);
-  elseif vel > 20,
-    motAngAcc = motorAngularAcce(3);
-  elseif vel > 15,
-    motAngAcc = motorAngularAcce(2);
-  elseif vel > 1,
-    motAngAcc = motorAngularAcce(1);
-  else,
-    motAngAcc = 0;
+  stopped = 1;
+  if vel < 0.01,
+    stopped = 0;
   endif
   
-  hydrAngularAcc = -motAngAcc -k *s -eta *sign(s);
-  if hydrAngularAcc > 0,
-    hydrAngularAcc = 0;
+  if accd < motAccs(2),
+    motAcc = stopped *motAccs(2);
+  elseif accd < motAccs(1),
+    motAcc = stopped *Accd;
+  else,
+    motAcc = 0;
   endif
-  totalAngularAcc = motAngAcc +hydrAngularAcc;
-  totalAcc = R *totalAngularAcc;
-  hydrAcc = R *hydrAngularAcc;
+  
+  hydrAcc = stopped *(hydrAcc -k *s -eta *sign(s));
+  if hydrAcc > 0,
+    hydrAcc = 0;
+  endif
+  totalAcc = motAcc +hydrAcc;
+  
+  if totalAcc < -mu *9.8,
+    totalAcc = -mu *9.8;
+    hydrAcc = totalAcc -motAcc;
+  endif
 end;
