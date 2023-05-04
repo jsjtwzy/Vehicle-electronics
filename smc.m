@@ -13,7 +13,7 @@ function [totalAcc, hydrAcc, motAcc] = smc(vel, acc, accd, mu, hydrAcc)
   if vel < 0.01,
     stopped = 0;
   endif
-  
+
   if accd < motAccs(2),
     motAcc = stopped *motAccs(2);
   elseif accd < motAccs(1),
@@ -21,15 +21,15 @@ function [totalAcc, hydrAcc, motAcc] = smc(vel, acc, accd, mu, hydrAcc)
   else,
     motAcc = 0;
   endif
-  
+
   hydrAcc = stopped *(hydrAcc -k *s -eta *sign(s));
   if hydrAcc > 0,
     hydrAcc = 0;
   endif
   totalAcc = motAcc +hydrAcc;
-  
+
   if totalAcc < -mu *9.8,
     totalAcc = -mu *9.8;
     hydrAcc = totalAcc -motAcc;
   endif
-end;
+endfunction;
