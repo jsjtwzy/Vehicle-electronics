@@ -36,5 +36,5 @@ line([t0, t0], [-10, 30], "linewidth", 2);
 grid on;
 xlabel('Time[s]');
 legend('Velocity[m/s]', 'Total decceleration[m/s^2]', 'Hydraulic decceleration[m/s^2]', 'Motor decceleration[m/s^2]');
-text (t0 -1, 15, [num2str(t0), 's, stopped']);
-text (0, 20, ['Recovery efficiency: ',num2str(efficiency)]);
+text(t0 -1, 15, [num2str(t0), 's, stopped']);
+text(0, 20, ['Recovery efficiency: ',num2str(efficiency)]);
