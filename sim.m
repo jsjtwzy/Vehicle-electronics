@@ -32,7 +32,7 @@ end;
 efficiency = sum(vels(4, :)) /sum(vels(2, :))
 t = linspace(0, tm);
 plot(t, vels, "linewidth", 2);
-line([t0, t0], [-10, 30], "linewidth", 2);
+line([t0, t0], [-10, 30], "linewidth", 1, "color", "black");
 grid on;
 xlabel('Time[s]');
 legend('Velocity[m/s]', 'Total decceleration[m/s^2]', 'Hydraulic decceleration[m/s^2]', 'Motor decceleration[m/s^2]');
