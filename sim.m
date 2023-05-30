@@ -14,7 +14,7 @@ for i = 1:1:100,
   else,
     mu = 0.6;
     accd = -5;
-  endif
+  endif,
   [total, brake, motor] = smc(vel, acc, accd, mu, hydrAcc);
   vels(1, i) = vel;
   vels(2, i) = -total;

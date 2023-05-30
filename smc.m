@@ -1,5 +1,5 @@
 # 滑模控制函数
-function [totalAcc, hydrAcc, motAcc] = smc(vel, acc, accd, mu, hydrAcc)
+function [totalAcc, hydrAcc, motAcc] = smc(vel, acc, accd, mu, hydrAcc),
   # 四种工作模式对应四种角减速度
   motorAngularAcce = [-38.43, -39.14];
   R = 0.28;
@@ -12,7 +12,7 @@ function [totalAcc, hydrAcc, motAcc] = smc(vel, acc, accd, mu, hydrAcc)
   stopped = 1;
   if vel < 0.01,
     stopped = 0;
-  endif
+  endif;
 
   if accd < motAccs(2),
     motAcc = stopped *motAccs(2);
